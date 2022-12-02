@@ -4,7 +4,7 @@
 #include <math.h>
 #define eps 0.0001
 
-unsigned int method_select( void )
+unsigned int method_select( void );
 double f( double x );
 void print_result(double a, double b, unsigned int n, double I);
 double left_rectangle(double a, double b, unsigned int n);
@@ -14,7 +14,7 @@ int main()
     unsigned int num_of_method; //1 - left, 2 - right, 3 - trap, 4 - Simpson
     const double a = 1;
     const double b = -1;
-    unsigned int n = 1000;
+    unsigned int n = 2000;
     double I;
     double I1, I2;
     unsigned int N;
@@ -22,32 +22,33 @@ int main()
     num_of_method  =  method_select();
 
     if ( num_of_method == 1 ){
-            
+
         I=left_rectangle(a, b, n);
         print_result (a, b, n, I);
-      
+
       N = 0;
-       do{ 
+       do{
          N = N + 2;
          I1 = left_rectangle(a, b, N);
          I2 = left_rectangle(a, b, N+2);
-        }while( fabs(I2-I1) > eps );
-        
-        printf("\n N=%u, I1(N)=%.8lf", N, I1);
-        
+        }
+        while( fabs(I2-I1) > eps );
+
+        printf("\n N=%u, I1(N)=%.6lf", N, I1);
+
     }
     /*else if ( num_of_method == 2 ){
-        
+
         I=left_rectangle(a, b, n);
-        
+
     }else if ( num_of_method == 3 ){
-        
+
         I=trap(a, b, n);
-        
+
     }else{
-        
+
     I=simpson(a, b, n);
-    
+
     }
 */
 
@@ -106,13 +107,13 @@ unsigned int method_select(void)
 double f(double x)
 {
     double y;
-    
-    
-    y = (n*x)/pow(1.1+x,2);
-    
-    
+
+
+    y = x/pow(1.1+x,2);
+
+
     return y;
-    
+
 }
 
 
@@ -124,16 +125,16 @@ double left_rectangle(double a, double b, unsigned int n)
     unsigned int k;
     double x;
     double sum = 0;
-    
+
     h = ( b - a ) / n;
     x = a;
-    
+
     for (k = 0; k <= n-1; k++ ){
         sum = sum + f(x);
         x = x + h;
     }
     return sum * h;
-    
+
 }
 
 //-------------------------------------------------
@@ -142,9 +143,10 @@ void print_result(double a, double b, unsigned int n, double I)
 {
     system("cls");
     printf("\n\n*************************");
-    printf("\n--     Results     --");
+    printf("\n--        Results        --");
     printf("\n*************************\n");
-    printf("a=%.2lf  b=%.2lf  n=%u  I=%.8lf", a, b, n, I);
-    
-    
+    printf("a=%.2lf  b=%.2lf  n=%u  I=%.6lf", a, b, n, I);
+
+
 }
+
